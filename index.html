@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Napoli - Pizzaria Artesanal</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        barlow: ['Barlow', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#ca3c3f',
+                        secondary: '#2d5a27',
+                        dark: '#1a1a1a',
+                        muted: '#666666',
+                        footer: '#111111',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-[#fdfaf5] font-barlow relative pb-20">
+
+    <nav class="bg-white shadow-md fixed w-full z-30 top-0" x-data="{ open: false }">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-20">
+            <a href="#" class="flex items-center space-x-2">
+                <img src="./assets/images/Logotipo pizzaria laranja e preto.png" alt="Logo" class="h-12 w-auto" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span class="text-2xl font-black text-primary hidden sm:inline italic">PIZZARIA LA MAMMA</span>
+            </a>
+
+            <button @click="open = !open" class="md:hidden text-gray-700 focus:outline-none">
+                <svg x-show="!open" class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg x-show="open" class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-primary font-bold uppercase text-sm tracking-widest transition-colors">Home</a>
+                <a href="#cardapio" class="text-gray-700 hover:text-primary font-bold uppercase text-sm tracking-widest transition-colors">Cardápio</a>
+                <a href="#sobre" class="text-gray-700 hover:text-primary font-bold uppercase text-sm tracking-widest transition-colors">Sobre</a>
+                <a href="#contato" class="text-gray-700 hover:text-primary font-bold uppercase text-sm tracking-widest transition-colors">Contato</a>
+            </div>
+        </div>
+
+        <div x-show="open" class="md:hidden bg-white shadow-md border-t" style="display: none;">
+            <a href="#home" class="block px-4 py-3 text-gray-700 hover:bg-red-50 font-bold">Home</a>
+            <a href="#cardapio" class="block px-4 py-3 text-gray-700 hover:bg-red-50 font-bold">Cardápio</a>
+            <a href="#sobre" class="block px-4 py-3 text-gray-700 hover:bg-red-50 font-bold">Sobre</a>
+            <a href="#contato" class="block px-4 py-3 text-gray-700 hover:bg-red-50 font-bold">Contato</a>
+        </div>
+    </nav>
+
+    <div class="h-20" id="home"></div>
+
+    <section class="banner py-16 max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+        <div class="w-full md:w-1/2 mb-10 md:mb-0">
+            <div class="px-6 md:px-20 text-center md:text-left">
+                <p class="leading-tight">
+                    <span class="text-secondary block text-lg uppercase tracking-widest font-bold mb-2">Tradição Italiana</span>
+                    <b class="text-5xl md:text-6xl text-dark">A melhor pizza de <span class="text-primary">fermentação natural</span></b>
+                </p>
+                <div class="mt-8">
+                    <a class="bg-primary hover:bg-red-700 transition-all px-10 py-4 text-white rounded-full font-bold shadow-lg inline-block" href="#cardapio">
+                        QUERO MINHA PIZZA
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 px-6 flex justify-center">
+            <img src="./assets/images/Logotipo pizzaria laranja e preto (1).png" alt="Pizza" class="drop-shadow-2xl w-full max-w-md" onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&q=80'">
+        </div>
+    </section>
+
+    <section class="bg-white rounded-3xl shadow-xl overflow-hidden max-w-4xl mx-auto p-6 md:p-12 mb-16" id="cardapio">
+        <h1 class="text-4xl font-black text-center text-dark italic">Nosso Cardápio</h1>
+
+        <nav id="nav-categorias" class="overflow-x-auto whitespace-nowrap flex sm:justify-center gap-3 mt-8 pb-4 px-2 scrollbar-hide">
+            <button data-cat="tradicionais" class="btn-cat px-6 py-2 rounded-full bg-primary text-white font-bold text-sm uppercase transition-colors shrink-0">Tradicionais</button>
+            <button data-cat="especiais" class="btn-cat px-6 py-2 rounded-full bg-[#ebebeb] text-dark font-bold text-sm uppercase transition-colors shrink-0">Especiais</button>
+            <button data-cat="bebidas" class="btn-cat px-6 py-2 rounded-full bg-[#ebebeb] text-dark font-bold text-sm uppercase transition-colors shrink-0">Bebidas</button>
+            <button data-cat="sobremesas" class="btn-cat px-6 py-2 rounded-full bg-[#ebebeb] text-dark font-bold text-sm uppercase transition-colors shrink-0">Doces</button>
+        </nav>
+
+        <div id="cat-tradicionais" class="categoria-conteudo">
+            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Pizzas Tradicionais</div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Pizza Margherita', 42.00, 'Molho de tomate italiano, muçarela e manjericão fresco.', 'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=600&q=80', 'p_1')"></div>
+                    <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Pizza Margherita</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 42,00</p>
+                    </div>
+                    <button onclick="adicionarItem('p_1', 'Pizza Margherita', 42.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Pizza Calabresa', 38.00, 'Muçarela, calabresa artesanal e cebola roxa.', 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80', 'p_2')"></div>
+                    <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Pizza Calabresa</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 38,00</p>
+                    </div>
+                    <button onclick="adicionarItem('p_2','Pizza Calabresa', 38.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Pizza Quatro Queijos', 48.00, 'Muçarela, gorgonzola, parmesão e provolone.', 'https://images.unsplash.com/photo-1548365328-9f547fb0953b?w=600&q=80', 'p_3')"></div>
+                    <img src="https://images.unsplash.com/photo-1548365328-9f547fb0953b?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg">Pizza Quatro Queijos</h4>
+                        <p class="text-primary font-bold text-xl mt-1">R$ 48,00</p>
+                    </div>
+                    <button onclick="adicionarItem('p_3','Pizza Quatro Queijos', 48.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-especiais" class="categoria-conteudo hidden">
+            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Pizzas Especiais</div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Parma e Rúcula', 55.00, 'Muçarela, presunto parma, rúcula fresca e tomate seco.', 'https://images.unsplash.com/photo-1573821663912-569905455b1c?w=600&q=80', 'e_1')"></div>
+                    <img src="https://images.unsplash.com/photo-1573821663912-569905455b1c?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Parma e Rúcula</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 55,00</p>
+                    </div>
+                    <button onclick="adicionarItem('e_1', 'Parma e Rúcula', 55.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Trufada', 62.00, 'Creme de trufas, cogumelos frescos e parmesão.', 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', 'e_2')"></div>
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Trufada</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 62,00</p>
+                    </div>
+                    <button onclick="adicionarItem('e_2','Trufada', 62.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-bebidas" class="categoria-conteudo hidden">
+            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Bebidas</div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Vinho da Casa', 18.00, 'Taça 200ml - Cabernet Sauvignon.', 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80', 'b_1')"></div>
+                    <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-3 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Vinho da Casa</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 18,00</p>
+                    </div>
+                    <button onclick="adicionarItem('b_1', 'Vinho da Casa', 18.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Suco Natural', 10.00, 'Suco natural de Laranja ou Limão 400ml.', 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600&q=80', 'b_2')"></div>
+                    <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-3 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Suco Natural</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 10,00</p>
+                    </div>
+                    <button onclick="adicionarItem('b_2','Suco Natural', 10.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cat-sobremesas" class="categoria-conteudo hidden">
+            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Doces e Sobremesas</div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Pizza de Nutella', 25.00, 'Nutella cremosa e morangos frescos na nossa massa artesanal.', 'https://images.unsplash.com/photo-1574355598688-660c68615b3c?w=600&q=80', 's_1')"></div>
+                    <img src="https://images.unsplash.com/photo-1574355598688-660c68615b3c?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Pizza de Nutella</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 25,00</p>
+                    </div>
+                    <button onclick="adicionarItem('s_1', 'Pizza de Nutella', 25.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-[20px] p-4 shadow-sm border border-gray-200 relative flex flex-col hover:shadow-md transition-shadow group">
+                    <div class="absolute inset-0 z-0 cursor-pointer rounded-[20px]" onclick="abrirModalDetalhes('Tiramisu', 22.00, 'Sobremesa clássica italiana com café, cacau e creme de mascarpone.', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80', 's_2')"></div>
+                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80" class="w-full aspect-[5/4] object-contain rounded-xl mb-3 relative z-10 p-2 bg-gray-50 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none">
+                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                        <h4 class="font-bold text-dark text-lg leading-tight">Tiramisu</h4>
+                        <p class="text-primary font-bold text-xl leading-none mt-1">R$ 22,00</p>
+                    </div>
+                    <button onclick="adicionarItem('s_2','Tiramisu', 22.00)" class="w-full bg-red-600 text-white py-2 rounded-xl text-sm font-bold mt-4 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="detalhes-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div id="detalhes-modal-content" class="bg-white rounded-3xl p-6 w-full max-w-md transform scale-95 transition-transform duration-300 relative shadow-2xl">
+            <button onclick="fecharModalDetalhes()" class="absolute top-4 right-4 text-gray-400 hover:text-dark transition-colors bg-gray-100 rounded-full p-1 z-20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <img id="detalhes-img" src="" alt="Imagem do Produto" class="w-full h-48 object-contain rounded-xl mb-4 p-2 bg-gray-50 border">
+            <h3 id="detalhes-nome" class="text-2xl font-bold text-dark"></h3>
+            <p id="detalhes-desc" class="text-gray-600 mt-2 mb-6 text-sm"></p>
+            <div class="flex justify-between items-center mt-auto">
+                <span id="detalhes-preco" class="text-2xl font-black text-primary"></span>
+                <button id="detalhes-btn-add" class="bg-primary text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-red-700 transition-colors">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="carrinho-modal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="carrinho-modal-content" class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-lg h-[85vh] sm:h-auto sm:max-h-[80vh] flex flex-col transform translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300">
+            <div class="p-6 border-b flex justify-between items-center bg-white rounded-t-3xl">
+                <h2 class="text-2xl font-black text-dark italic">Seu Carrinho</h2>
+                <button onclick="fecharModalCarrinho()" class="text-gray-500 hover:text-dark bg-gray-100 p-1 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div id="carrinho-itens-container" class="p-6 overflow-y-auto flex-1 bg-gray-50">
+                </div>
+            
+            <div class="p-6 border-t bg-white rounded-b-3xl">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold text-dark">Total da Compra:</span>
+                    <span id="modal-carrinho-total" class="text-2xl font-black text-primary">R$ 0,00</span>
+                </div>
+                <button class="w-full bg-green-600 text-white py-4 rounded-xl font-bold text-lg shadow-md hover:bg-green-700 transition-colors uppercase tracking-wider">
+                    Finalizar Pedido via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="carrinho-footer" class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] p-4 flex justify-between items-center z-40 transform translate-y-full transition-transform duration-300">
+        <div class="max-w-4xl mx-auto w-full flex justify-between items-center px-4">
+            <div>
+                <span class="text-sm text-gray-500 font-bold uppercase">Total carrinho</span>
+                <div id="carrinho-total" class="font-black text-2xl text-primary">R$ 0,00</div>
+            </div>
+            <button onclick="abrirModalCarrinho()" class="bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-red-700 transition-colors flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Ver Carrinho
+            </button>
+        </div>
+    </div>
+
+    <footer class="mt-10 text-center p-[60px] text-white bg-footer border-t-4 border-primary">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="font-black text-2xl italic mb-4 text-primary uppercase">Bella Napoli</h3>
+            <p class="my-2 text-gray-400">Rua das Pizzas, 123, Centro - Sorocaba/SP</p>
+            <div class="flex justify-center gap-4 my-4">
+                <span class="bg-secondary px-3 py-1 rounded text-xs font-bold tracking-widest uppercase">Delivery</span>
+                <span class="bg-primary px-3 py-1 rounded text-xs font-bold tracking-widest uppercase">Salão</span>
+            </div>
+            <p class="text-sm opacity-70 italic">Aberto de Terça a Domingo: 18h às 23h30</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5515987654321" target="_blank" class="fixed right-6 bottom-24 transition-transform hover:scale-110 z-30 bg-green-500 rounded-full p-3 shadow-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-10.686c-4.237 0-7.675 3.438-7.675 7.675 0 1.407.366 2.73 1.015 3.868l-1.353 4.954 5.068-1.331c1.102.582 2.346.907 3.653.907 4.234 0 7.672-3.438 7.672-7.674 0-4.235-3.438-7.672-7.672-7.672h-.008z"/></svg>
+    </a>
+
+     <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const closeBtn = document.getElementById("closeBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.style.right = "0";
+        });
+
+        closeBtn.addEventListener("click", () => {
+            mobileMenu.style.right = "-100%";
+        });
+    </script>
+
+    <script>
+        // ==========================================
+        // CATEGORIAS
+        // ==========================================
+        const botoes = document.querySelectorAll('.btn-cat');
+        const conteudos = document.querySelectorAll('.categoria-conteudo');
+
+        function mudarCategoria(cat) {
+            //mostra apenas a categoria seleconada
+            conteudos.forEach(div => {
+                div.id === 'cat-' + cat
+                    ? div.classList.remove('hidden')
+                    : div.classList.add('hidden');
+            });
+            //atualiza estilo do botao ativo
+            botoes.forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.classList.add('bg-primary', 'text-white');
+                    btn.classList.remove('bg-[#ebebeb]', 'text-dark');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('bg-[#ebebeb]', 'text-dark');
+                }
+            });
+        }
+
+        //ativa scroll suave para links internos no mobile
+        let startX = 0;
+        let startY = 0;
+
+        botoes.forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                btn.classList.add('scale-95', 'opacity-80');
+            });
+
+            btn.addEventListener('touchend', (e) => {
+                btn.classList.remove('scale-95', 'opacity-80');
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                const deltaX = Math.abs(endX - startX);
+                const deltaY = Math.abs(endY - startY);
+                
+                if (deltaX < 10 && deltaY < 10) {
+                    // CORRIGIDO: de database para dataset
+                    mudarCategoria(btn.dataset.cat); 
+                }
+            });
+
+            btn.addEventListener('touchcancel', () => {
+                btn.classList.remove('scale-95', 'opacity-80');
+            });
+
+            btn.addEventListener('click', () => {
+                mudarCategoria(btn.dataset.cat);
+            });
+        });
+
+        // ==========================================
+        // MODAL DETALHES DO PRODUTO
+        // ==========================================
+        const modalDetalhes = document.getElementById('detalhes-modal');
+        const modalDetalhesContent = document.getElementById('detalhes-modal-content');
+
+        function abrirModalDetalhes(nome, preco, desc, img, id) {
+            if (navigator.vibrate) navigator.vibrate(40);
+
+            document.getElementById('detalhes-nome').innerText = nome;
+            document.getElementById('detalhes-preco').innerText = preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('detalhes-desc').innerText = desc;
+            document.getElementById('detalhes-img').src = img;
+            document.getElementById('detalhes-btn-add').onclick = function () {
+                adicionarItem(id, nome, preco);
+                fecharModalDetalhes();
+            }
+            modalDetalhes.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                modalDetalhesContent.classList.remove('scale-95');
+                modalDetalhesContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function fecharModalDetalhes() {
+            modalDetalhesContent.classList.remove('scale-100');
+            modalDetalhesContent.classList.add('scale-95');
+            setTimeout(() => {
+                modalDetalhes.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
+
+        // ==========================================
+        // LÓGICA DO CARRINHO
+        // ==========================================
+        let carrinho = [];
+        
+        const carrinhoFooter = document.getElementById('carrinho-footer');
+        const carrinhoTotalSpan = document.getElementById('carrinho-total');
+        const modal = document.getElementById('carrinho-modal');
+        const modalContent = document.getElementById('carrinho-modal-content');
+        const itensContainer = document.getElementById('carrinho-itens-container');
+        const modalTotalSpan = document.getElementById('modal-carrinho-total');
+
+        function inicializarCarrinho() {
+            const carrinhoSalvo = localStorage.getItem('haruy_carrinho');
+            if (carrinhoSalvo) {
+                carrinho = JSON.parse(carrinhoSalvo);
+                // CORRIGIDO: erro de digitação de "Iterface" para "Interface"
+                atualizarInterfaceCart(); 
+            }
+        }
+
+        function adicionarItem(id, nome, preco) {
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            const index = carrinho.findIndex(item => item.id === id);
+
+            if (index !== -1) {
+                carrinho[index].quantidade += 1;
+            } else {
+                carrinho.push({
+                    id: id,
+                    nome: nome,
+                    preco: preco,
+                    quantidade: 1
+                });
+            }
+            atualizarCarrinho();
+        }
+
+        function abrirModalCarrinho() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                modalContent.classList.remove('translate-y-full', 'scale-95');
+            }, 10);
+        }
+
+        function fecharModalCarrinho() {
+            modalContent.classList.add('translate-y-full', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
+        function aumentarQuantidade(id) {
+            const index = carrinho.findIndex(item => item.id === id);
+            if (index !== -1) {
+                carrinho[index].quantidade += 1;
+                atualizarCarrinho();
+                if (navigator.vibrate) navigator.vibrate(50);
+            }
+        }
+
+        function diminuirQuantidade(id) {
+            const index = carrinho.findIndex(item => item.id === id);
+            if (index !== -1) {
+                if (carrinho[index].quantidade > 1) {
+                    carrinho[index].quantidade -= 1;
+                } else {
+                    carrinho.splice(index, 1);
+                    if (carrinho.length === 0) {
+                        fecharModalCarrinho();
+                    }
+                }
+                atualizarCarrinho();
+                if (navigator.vibrate) navigator.vibrate(50);
+            }
+        }
+
+        function atualizarCarrinho() {
+            localStorage.setItem('haruy_carrinho', JSON.stringify(carrinho));
+            atualizarInterfaceCart();
+        }
+
+        function atualizarInterfaceCart() {
+            if (carrinho.length === 0) {
+                carrinhoFooter.classList.add('translate-y-full');
+                return;
+            }
+            
+            const total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+            const totalFormato = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            if (carrinhoTotalSpan) carrinhoTotalSpan.innerText = totalFormato;
+            if (modalTotalSpan) modalTotalSpan.innerText = totalFormato;
+            
+            carrinhoFooter.classList.remove('translate-y-full');
+            renderizarItensModal();
+        }
+
+        function renderizarItensModal() {
+            if (!itensContainer) return;
+            itensContainer.innerHTML = '';
+
+            carrinho.forEach(item => {
+                // CORRIGIDO: Padronizado os nomes das variáveis e as tags HTML
+                const subtotal = (item.preco * item.quantidade).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const precoUnit = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                
+                const divItem = document.createElement('div');
+                divItem.className = "flex justify-between items-center border-b pb-4 mt-2";
+
+                // CORRIGIDO: Fechamento correto da tag <div ...> e a classe active:scale-95 sem espaços
+                divItem.innerHTML = `
+                  <div class="flex-1">
+                    <h4 class="font-bold text-lg text-dark">${item.nome}</h4>
+                    <p class="text-sm text-muted">${precoUnit}</p>
+                    <p class="font-bold text-primary mt-1">${subtotal}</p>
+                  </div>
+                  <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
+                      <button onclick="diminuirQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95 transition-all">-</button>
+                      <span class="font-bold text-lg w-4 text-center">${item.quantidade}</span>
+                      <button onclick="aumentarQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95 transition-all">+</button>
+                  </div>
+              `;
+              itensContainer.appendChild(divItem);
+            });
+        }
+        
+        // Chama a inicialização quando o script carrega
+        inicializarCarrinho();
+    </script>
+</body>
+</html>
